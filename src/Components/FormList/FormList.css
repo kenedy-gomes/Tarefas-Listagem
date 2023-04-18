@@ -1,8 +1,17 @@
-.chakra-stack.css-egoftb{
+.css-a5mhaz {
+  padding: 0px !important;
+}
+.container-map {
   overflow-y: scroll;
-  max-height: 320px;
+  max-height: 530px;
 }
 
-.css-a5mhaz{
-  padding: 0px !important;
+.border-map {
+  border-radius: 10px;
+  margin: 1em 0.5em 1em 0em;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.css-1sl53ol {
+  background-color: #edf2f7;
 }

@@ -12,27 +12,22 @@ import {
   Card,
   CardHeader,
   Heading,
-  CardBody,
   Text,
-  useQuery,
-
 } from "@chakra-ui/react";
 const baseURL = "http://localhost:3001/tarefas";
 const baseURL2 = "http://localhost:3001/tarefas/status";
 
-
 const FormList = () => {
+  const [buscaPorStatus, setBuscaPorStatus] = useState();
+  const [tarefasFiltradas, setTarefasFiltradas] = useState([]);
 
-const [buscaPorStatus, setBuscaPorStatus] = useState();
-const [tarefasFiltradas, setTarefasFiltradas] = useState([]);
+  const [error, SetError] = useState(null);
 
-const [error, SetError] = useState(null);
+  const handleStatus = (event) => {
+    setBuscaPorStatus(event.target.value);
+  };
 
-const handleStatus = (event) => {
-  setBuscaPorStatus(event.target.value);
-};
-
-const getTarefasStatus = async () => {
+  const getTarefasStatus = async () => {
     axios
       .get(baseURL2, {
         params: {
@@ -40,38 +35,49 @@ const getTarefasStatus = async () => {
         },
       })
       .then((response) => {
-          setTarefasFiltradas(response.data);
+        setTarefasFiltradas(response.data);
       })
       .catch((error) => {
         console.error("Erro na requisição", error);
         SetError(error);
-      })
-      
+      });
   };
 
-   
   return (
-    <Formik>
+    <Formik
+      initialValues={{
+        id: null,
+        name: "",
+        description: "",
+        status: "",
+      }}
+      onSubmit={getTarefasStatus}
+    >
       <Tabs>
-        <TabList  onClick={() => getTarefasStatus()}>
+        <TabList onClick={() => getTarefasStatus()}>
           <Tab value="Aberto">Em Aberto</Tab>
           <Tab value="Pendente">Pendente</Tab>
           <Tab value="TodasAsTarefas">Todas as Tarefas</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>
-            <Stack spacing="4">
-              
-                <Card >
-                  <CardHeader>
-                    <Heading size="md"> </Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Text> </Text>
-                  </CardBody>
-                </Card>
-            
-            </Stack>
+          <TabPanel className="container-map">
+            {tarefasFiltradas.map((tarefasFiltradas) => {
+              const { _id, name, description, status } = tarefasFiltradas;
+              return (
+                <div className="border-map">
+                  <Stack spacing="4">
+                    <Card onChange={handleStatus}>
+                      <CardHeader key={_id}>
+                        <Heading size="md">ID: {_id}</Heading>
+                        <Text key={name}>Name: {name}</Text>
+                        <Text key={description}>Descrição: {description}</Text>
+                        <Text key={status}>Status: {status}</Text>
+                      </CardHeader>
+                    </Card>
+                  </Stack>
+                </div>
+              );
+            })}
           </TabPanel>
           <TabPanel>
             <p>two!</p>
@@ -80,7 +86,6 @@ const getTarefasStatus = async () => {
             <p>three!</p>
           </TabPanel>
         </TabPanels>
-
       </Tabs>
     </Formik>
   );
