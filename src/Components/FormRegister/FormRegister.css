@@ -1,0 +1,21 @@
+.container-input-a {
+  display: inline !important;
+  width: 100%;
+}
+
+.form-container-a {
+  width: 50%;
+  margin: 2em 2em 0em 2em;
+  padding: 20px;
+}
+
+h2 {
+  margin: 0px 0px 20px 0px;
+  font-weight: 800;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+Input {
+  margin: 0px 0px 10px 0px;
+}
