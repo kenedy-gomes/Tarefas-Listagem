@@ -68,7 +68,7 @@ const FormRegister = () => {
             >
               <Radio value="Aberto">Aberto</Radio>
               <Radio value="Pendente">Pendente</Radio>
-              <Radio value="Concluida">Concluida</Radio>
+              <Radio value="Concluido">Concluido</Radio>
             </Stack>
           </RadioGroup>
 
