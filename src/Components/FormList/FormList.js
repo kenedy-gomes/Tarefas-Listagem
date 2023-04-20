@@ -1,7 +1,7 @@
 import "./FormList.css";
 import { Formik } from "formik";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Tabs,
   TabList,
@@ -14,52 +14,41 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
+import ModalEditar from "../../Modal/ModalEditar/ModalEditar";
  
- 
-const baseURL2 = "http://localhost:3001/tarefas/status";
+
+
+const baseURL = "http://localhost:3001/tarefas/status";
+
+
 const STATUS = {
   ABERTO: 'Aberto',
-  PENDENTE:  'Pendente',
+  PENDENTE: 'Pendente',
   CONCLUIDO: 'Concluido',
 }
 const FormList = () => {
-  const [buscaPorStatus, setBuscaPorStatus] = useState();
-  const [tarefasFiltradas, setTarefasFiltradas] = useState([]);
-  const [currentState, setCurrentState] = useState(STATUS.ABERTO)
+  const [tarefas, setTarefas] = useState([]);
   const [error, SetError] = useState(null);
 
-  const handleStatus = (event) => {
-    setBuscaPorStatus(event.target.value);
-  };
-  const getTarefasStatus = async () => {
+  const buscasTarefasPorStatus = async (status) => {
     axios
-      .get(baseURL2, {
+      .get(baseURL, {
         params: {
-          status: buscaPorStatus,
+          status,
         },
       })
       .then((response) => {
-        setTarefasFiltradas(response.data);
+        console.log('response status', status);
+
+        console.log(response.data);
+
+        setTarefas(response.data);
       })
       .catch((error) => {
         console.error("Erro na requisição", error);
         SetError(error);
       });
   };
-  const [currentList, setCurrentList] = useState([])
-
- useEffect(() => {
-  const fetch = async () => {
-    const response = await axios.get("http://localhost:3001/tarefas/status", {
-      params: {
-        status: currentState
-      }
-    })
-    setCurrentList(response.data);
-  }
-  fetch();
- }, [currentState, currentList, setCurrentList]);
-
   return (
     <Formik
       initialValues={{
@@ -68,28 +57,27 @@ const FormList = () => {
         description: "",
         status: "",
       }}
-      onSubmit={getTarefasStatus}
+
     >
       <Tabs>
-        <TabList onClick={() => getTarefasStatus()}>
-          <Tab value="Aberto" onClick={() => setCurrentState(STATUS.ABERTO)}>Em Aberto</Tab>
-          <Tab value="Pendente" onClick={() => setCurrentState(STATUS.PENDENTE)}>Pendente</Tab>
-          <Tab value="Concluido" onClick={() => setCurrentState(STATUS.CONCLUIDO)}>Concluido</Tab>
-          <Tab value="TodasAsTarefas">Todas as Tarefas</Tab>
+        <TabList>
+          <Tab value="Aberto" onClick={async () => buscasTarefasPorStatus(STATUS.ABERTO)}>Em Aberto</Tab>
+          <Tab value="Pendente" onClick={async () => buscasTarefasPorStatus(STATUS.PENDENTE)}>Pendente</Tab>
+          <Tab value="Concluido" onClick={async () => buscasTarefasPorStatus(STATUS.CONCLUIDO)}>Concluido</Tab>
+          <Tab value="TodasAsTarefas" onClick={async () => buscasTarefasPorStatus()}>Todas as Tarefas</Tab>
         </TabList>
         <TabPanels>
           <TabPanel className="container-map">
-            {currentList?.map((tarefasFiltradas) => {
+            {tarefas.map((tarefasFiltradas) => {
               const { _id, name, description, status } = tarefasFiltradas;
               return (
-                <div className="border-map">
+                <div className="border-map" key={_id}>
                   <Stack spacing="4">
-                    <Card onChange={handleStatus}>
+                    <Card>
                       <CardHeader key={_id}>
-                        <Heading size="md">ID: {_id}</Heading>
-                        <Text key={name}>Name: {name}</Text>
-                        <Text key={description}>Descrição: {description}</Text>
-                        <Text key={status}>Status: {status}</Text>
+                        <Heading size="md">Name: {name}</Heading>
+                        <Text key={name}>Descrição: {description}</Text>
+                        <Text key={description}>Status: {status}</Text>
                       </CardHeader>
                     </Card>
                   </Stack>
@@ -97,19 +85,17 @@ const FormList = () => {
               );
             })}
           </TabPanel>
-          <TabPanel>
           <TabPanel className="container-map">
-            {currentList?.map((tarefasFiltradas) => {
+            {tarefas.map((tarefasFiltradas) => {
               const { _id, name, description, status } = tarefasFiltradas;
               return (
-                <div className="border-map">
+                <div className="border-map" key={_id}>
                   <Stack spacing="4">
-                    <Card onChange={handleStatus}>
+                    <Card>
                       <CardHeader key={_id}>
-                        <Heading size="md">ID: {_id}</Heading>
-                        <Text key={name}>Name: {name}</Text>
-                        <Text key={description}>Descrição: {description}</Text>
-                        <Text key={status}>Status: {status}</Text>
+                        <Heading size="md">Name: {name}</Heading>
+                        <Text key={name}>Descrição: {description}</Text>
+                        <Text key={description}>Status: {status}</Text>
                       </CardHeader>
                     </Card>
                   </Stack>
@@ -117,20 +103,17 @@ const FormList = () => {
               );
             })}
           </TabPanel>
-          </TabPanel>
-          <TabPanel>
           <TabPanel className="container-map">
-            {currentList?.map((tarefasFiltradas) => {
+            {tarefas.map((tarefasFiltradas) => {
               const { _id, name, description, status } = tarefasFiltradas;
               return (
-                <div className="border-map">
+                <div className="border-map" key={_id}>
                   <Stack spacing="4">
-                    <Card onChange={handleStatus}>
+                    <Card>
                       <CardHeader key={_id}>
-                        <Heading size="md">ID: {_id}</Heading>
-                        <Text key={name}>Name: {name}</Text>
-                        <Text key={description}>Descrição: {description}</Text>
-                        <Text key={status}>Status: {status}</Text>
+                        <Heading size="md">Name: {name}</Heading>
+                        <Text key={name}>Descrição: {description}</Text>
+                        <Text key={description}>Status: {status}</Text>
                       </CardHeader>
                     </Card>
                   </Stack>
@@ -138,25 +121,24 @@ const FormList = () => {
               );
             })}
           </TabPanel>
-          <TabPanel  className="container-map">
-            {currentList?.map((tarefasFiltradas) => {
+          <TabPanel className="container-map">
+            {tarefas.map((tarefasFiltradas) => {
               const { _id, name, description, status } = tarefasFiltradas;
               return (
-                <div className="border-map">
+                <div className="border-map" key={_id}>
                   <Stack spacing="4">
-                    <Card onChange={handleStatus}>
+                    <Card>
                       <CardHeader key={_id}>
-                        <Heading size="md">ID: {_id}</Heading>
-                        <Text key={name}>Name: {name}</Text>
-                        <Text key={description}>Descrição: {description}</Text>
-                        <Text key={status}>Status: {status}</Text>
+                        <Heading size="md">Name: {name}</Heading>
+                        <Text key={name}>Descrição: {description}</Text>
+                        <Text key={description}>Status: {status}</Text>
+                        <ModalEditar item={{_id, name, description, status}}/>
                       </CardHeader>
                     </Card>
                   </Stack>
                 </div>
               );
             })}
-          </TabPanel>
           </TabPanel>
         </TabPanels>
       </Tabs>
