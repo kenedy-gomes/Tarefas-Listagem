@@ -21,13 +21,9 @@ const FormRegister = () => {
         status: data.status,
       })
       .then(function (response) {
-        if (!data.name || !data.description || !data.status) {
-          alert("Preencha os dados para efetur o cadastro");
-        } else {
-          console.log(response);
-          alert("Cadastro efetuado!");
-          window.location.href = "http://localhost:3000";
-        }
+        console.log(response);
+        alert("Cadastro efetuado!");
+        window.location.href = "http://localhost:3000";
       })
       .catch(function (error) {
         console.log(error);
@@ -37,7 +33,6 @@ const FormRegister = () => {
   return (
     <Formik
       initialValues={{
-        id: null,
         name: "",
         description: "",
         status: "",

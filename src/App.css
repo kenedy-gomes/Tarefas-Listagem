@@ -11,3 +11,46 @@
   margin: 2em 2em 0em 2em;
   width: 60%;
 }
+
+@media (max-width: 840px) {
+  .form-container-a {
+    width: 100% !important;
+    margin: 0px !important;
+  }
+  .container-form-R {
+    display: inline;
+  }
+  .container-form-L {
+    padding: 20px;
+    margin: 0px !important;
+    width: 100%;
+  }
+}
+
+/* Estilos para dispositivos de tela pequena */
+@media (max-width: 405px) {
+  .form-container-a {
+    width: 100%;
+  }
+  .container-form-L {
+    padding: 20px;
+    margin: 0px !important;
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .chakra-tabs__tablist.css-1xhq01z {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 333px) {
+  .chakra-stack.css-1107xis {
+    display: inline;
+  }
+
+  .chakra-radio.css-1cqh9jq {
+    margin: 0em;
+  }
+}

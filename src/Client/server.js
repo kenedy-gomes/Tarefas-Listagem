@@ -57,7 +57,7 @@ app.post("/tarefas/cadastro", async (req, res) => {
     description: req.body.description,
     status: req.body.status,
   });
-
+  await task.save();
   res.send(task);
 });
 
