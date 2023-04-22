@@ -57,12 +57,12 @@ app.post("/tarefas/cadastro", async (req, res) => {
     description: req.body.description,
     status: req.body.status,
   });
-  await task.save();
+
   res.send(task);
 });
 
 // Atualizar uma tarefas
-app.put("/tarefas:id", async (req, res) => {
+app.put("/tarefas/:id", async (req, res) => {
   const task = await Task.findByIdAndUpdate(
     req.params.id,
     {

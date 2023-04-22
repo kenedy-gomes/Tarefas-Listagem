@@ -4,19 +4,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
+import { QueryClientProvider, QueryClient } from "react-query";
 
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    
-      <ChakraProvider>
-
-
-        <App />
-
-      </ChakraProvider>
-    
-
+  <ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </ChakraProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

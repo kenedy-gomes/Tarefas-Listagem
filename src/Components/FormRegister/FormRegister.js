@@ -1,4 +1,11 @@
-import { Button, Input, Radio, Stack, Textarea, RadioGroup } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  Radio,
+  Stack,
+  Textarea,
+  RadioGroup,
+} from "@chakra-ui/react";
 import "./FormRegister.css";
 import axios from "axios";
 import { Formik } from "formik";
@@ -6,7 +13,6 @@ import { Formik } from "formik";
 const baseURL3 = "http://localhost:3001/tarefas/cadastro";
 
 const FormRegister = () => {
-
   const handleSubmit1 = (data) => {
     axios
       .post(baseURL3, {
@@ -15,15 +21,18 @@ const FormRegister = () => {
         status: data.status,
       })
       .then(function (response) {
-        console.log(response);
-        alert("Cadastro efetuado!");
-        window.location.href = "http://localhost:3000";
+        if (!data.name || !data.description || !data.status) {
+          alert("Preencha os dados para efetur o cadastro");
+        } else {
+          console.log(response);
+          alert("Cadastro efetuado!");
+          window.location.href = "http://localhost:3000";
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
-  }
-
+  };
 
   return (
     <Formik
@@ -35,25 +44,19 @@ const FormRegister = () => {
       }}
       onSubmit={handleSubmit1}
     >
-      {({
-        values,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        setFieldValue,
-
-      }) => (
-
-        <div  className="form-container-a" method="post">
+      {({ values, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
+        <div className="form-container-a" method="post">
           <h2>Adicionar Tarefas</h2>
 
-          <Input width={"100%"} type="name"
+          <Input
+            width={"100%"}
+            type="name"
             name="name"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.name}
-            placeholder="Nome da Tarefa" />
-
+            placeholder="Nome da Tarefa"
+          />
 
           <RadioGroup
             onChange={(newvalue) => setFieldValue("status", newvalue)}
@@ -72,15 +75,19 @@ const FormRegister = () => {
             </Stack>
           </RadioGroup>
 
-
           <Textarea
             name="description"
             value={values.description}
             onChange={handleChange}
-            placeholder="Descrição da tarefa" />
+            placeholder="Descrição da tarefa"
+          />
 
-
-          <Button  onClick={handleSubmit} width={"100%"} margin={"10px 0px 0px 0px"} colorScheme="blue">
+          <Button
+            onClick={handleSubmit}
+            width={"100%"}
+            margin={"10px 0px 0px 0px"}
+            colorScheme="blue"
+          >
             Adicionar
           </Button>
         </div>
