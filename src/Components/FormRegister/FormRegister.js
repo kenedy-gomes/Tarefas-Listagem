@@ -45,6 +45,7 @@ const FormRegister = () => {
 
           <Input
             width={"100%"}
+            border={"1px solid #3678ce"}
             type="name"
             name="name"
             onChange={handleChange}
@@ -71,6 +72,7 @@ const FormRegister = () => {
           </RadioGroup>
 
           <Textarea
+            border={"1px solid #3678ce"}
             name="description"
             value={values.description}
             onChange={handleChange}

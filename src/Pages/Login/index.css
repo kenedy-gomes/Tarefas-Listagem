@@ -1,0 +1,66 @@
+.login {
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  display: flex;
+  background-color: rgb(235, 232, 232);
+  margin: 0px;
+}
+
+.login .link-register {
+  color: rgb(72, 148, 219);
+  font-size: 1em;
+  margin: 0em 0em 0em 0.5em;
+}
+
+.login .form-input {
+  border: 1px solid #ffffff;
+  padding: 20px;
+  border-radius: 1em;
+  background-color: #ffffff;
+}
+
+.login .field {
+  width: 30em;
+  padding: 1em;
+  justify-content: center;
+}
+
+.login .p-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0em 0em 1em 0em;
+  color: rgb(100, 98, 98);
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.login .h1-text {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 3em;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+}
+
+.login .btn-forgot {
+  font-size: medium;
+  font-weight: 600;
+  color: rgb(44, 137, 212);
+}
+
+.login .container-btn {
+  margin: 0em 0em 0.5em 0em;
+}
+
+.login .email {
+  margin: 0em;
+}
+
+.login .password {
+  margin: 0em;
+}

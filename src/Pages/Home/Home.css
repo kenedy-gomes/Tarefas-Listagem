@@ -1,0 +1,23 @@
+.form {
+  padding: 4em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.form h1 {
+  font-size: 1.5em;
+  color: black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 800;
+}
+
+.form p {
+  margin: 2em;
+  font-size: 1em;
+  color: black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 800;
+}

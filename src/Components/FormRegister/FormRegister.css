@@ -17,6 +17,7 @@ h2 {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-Input {
-  margin: 0px 0px 10px 0px;
+.chakra-radio__control.css-vtg3j9 {
+  border: 1px solid #3678ce;
+  padding: 1px;
 }
