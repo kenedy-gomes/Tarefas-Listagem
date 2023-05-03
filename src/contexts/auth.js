@@ -11,14 +11,13 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const recoveredUser = localStorage.getItem("user");
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem("token");
     if (recoveredUser && token) {
       setUser(JSON.stringify(recoveredUser, token));
     }
     setLoading(false);
   }, []);
 
- 
   const login = async (email, password) => {
     const response = await createSession(email, password);
     const loggedUser = response.data.user;

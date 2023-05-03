@@ -1,7 +1,7 @@
 //config inicial
 const Task = require("../Models/Tarefas");
 const Usuarios = require("../Models/Peaple");
- 
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const express = require("express");
 const SECRET = "12345";
@@ -86,7 +86,39 @@ app.delete("/tarefas/:id", async (req, res) => {
   res.send("Tarefa excluída com sucesso!");
 });
 
-//CADASTRO DE USUARIOS//
-///////////////////??????????????????????//////////////////////////////////////////////////////////////
+////////Verificação JWT////////////////////
 
- 
+function verifyJwt(req, res, next) {
+  const token = req.headers["x-acess-token"];
+  jwt.verify(token, SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).end();
+    } else {
+      req.usuarios = decoded.usuarios;
+      next();
+    }
+  });
+}
+
+//////////REQUISIÇÃO USUARIOS////////////////
+app.get("/usuarios", verifyJwt, async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  console.log(req.usuarios + "fez esta chamada!");
+  const usuarios = await Usuarios.find();
+  res.send(usuarios);
+});
+
+app.post("/usuarios", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
+  const usuarios = new Usuarios({
+    name: req.body.name,
+    description: req.body.description,
+    status: req.body.status,
+  });
+  if (usuarios) {
+    const token = jwt.sign({ usuarios }, SECRET, { expiresIn: 1000 });
+    return res.json({ auth: true, token });
+  }
+  await usuarios.save();
+  res.send(usuarios);
+});
