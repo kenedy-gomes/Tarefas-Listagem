@@ -1,7 +1,7 @@
 //config inicial
 const Task = require("../Models/Tarefas");
 const Usuarios = require("../Models/Peaple");
-const jwt = require("jsonwebtoken");
+ 
 const mongoose = require("mongoose");
 const express = require("express");
 const SECRET = "12345";
@@ -89,32 +89,4 @@ app.delete("/tarefas/:id", async (req, res) => {
 //CADASTRO DE USUARIOS//
 ///////////////////??????????????????????//////////////////////////////////////////////////////////////
 
-function verifyJWT(req, res, next) {
-  const token = req.headers["x-acess-token"];
-  jwt.verify(token, SECRET, (err, decoded) => {
-    if (err) return res.status(401).end();
-
-    req.usuarios = decoded.usuarios;
-    next();
-  });
-}
-
-app.post("/usuarios", verifyJWT, async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
-  console.log(usuarios + "Fez esta chamada");
-  const usuarios = new Usuarios({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  });
-  await usuarios.save();
-  const token = jwt.sign({ usuarios }, SECRET, { expiresIn: 30000 });
-
-  res.send(usuarios, token);
-});
-
-app.get("/usuarios", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  const usuarios = await Usuarios.find();
-  res.send(usuarios);
-});
+ 
