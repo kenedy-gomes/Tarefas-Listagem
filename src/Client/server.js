@@ -105,7 +105,7 @@ function verifyJwt(req, res, next) {
 app.get("/usuarios", verifyJwt, async (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   const usuarios = await Usuarios.find();
-  console.log(req.usuarios + "fez esta chamada!");
+  console.log(usuarios + "fez esta chamada!");
   res.send(usuarios);
 });
 
@@ -113,13 +113,11 @@ app.post("/usuarios", async (req, res) => {
   res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   const usuarios = new Usuarios({
     name: req.body.name,
-    description: req.body.description,
-    status: req.body.status,
+    email: req.body.email,
+    password: req.body.password,
   });
-  if (usuarios) {
+    await usuarios.save();
+    const usuariosSave = await Usuarios.find();  
     const token = jwt.sign({ usuarios }, TOKEN_SECRET, { expiresIn: 1000 });
-    return res.json({ auth: true, token });
-  }
-  await usuarios.save();
-  res.send(usuarios);
+    return res.json({ auth: true, token, usuarios })
 });

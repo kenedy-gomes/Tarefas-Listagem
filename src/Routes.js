@@ -13,11 +13,15 @@ const Routers = () => {
     if (loading) {
       return <div className="loading">carregando...</div>;
     }
+
     if (!authenticated) {
       return <Navigate to="/login" />;
     }
+    
     return children;
   };
+
+
   return (
     <AuthProvider>
       <Routes>
