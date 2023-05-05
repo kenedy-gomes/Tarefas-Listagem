@@ -4,7 +4,7 @@ const Usuarios = require("../Models/Peaple");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const express = require("express");
-const SECRET = "12345";
+const TOKEN_SECRET = "09f26e402586e2faa8da4c98a35f1b20d6b033c60";
 
 mongoose.set("strictQuery", true);
 var cors = require("cors");
@@ -89,22 +89,23 @@ app.delete("/tarefas/:id", async (req, res) => {
 ////////Verificação JWT////////////////////
 
 function verifyJwt(req, res, next) {
-  const token = req.headers["x-acess-token"];
-  jwt.verify(token, SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).end();
-    } else {
-      req.usuarios = decoded.usuarios;
-      next();
-    }
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) return res.sendStatus(401);
+  jwt.verify(token, TOKEN_SECRET, (err, user) => {
+    console.log(err);
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
   });
 }
 
 //////////REQUISIÇÃO USUARIOS////////////////
 app.get("/usuarios", verifyJwt, async (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
-  console.log(req.usuarios + "fez esta chamada!");
   const usuarios = await Usuarios.find();
+  console.log(req.usuarios + "fez esta chamada!");
   res.send(usuarios);
 });
 
@@ -116,7 +117,7 @@ app.post("/usuarios", async (req, res) => {
     status: req.body.status,
   });
   if (usuarios) {
-    const token = jwt.sign({ usuarios }, SECRET, { expiresIn: 1000 });
+    const token = jwt.sign({ usuarios }, TOKEN_SECRET, { expiresIn: 1000 });
     return res.json({ auth: true, token });
   }
   await usuarios.save();

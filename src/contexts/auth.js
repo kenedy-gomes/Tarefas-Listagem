@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, createSession } from "../Services/api";
 
@@ -7,20 +7,11 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const recoveredUser = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-    if (recoveredUser && token) {
-      setUser(JSON.stringify(recoveredUser, token));
-    }
-    setLoading(false);
-  }, []);
 
   const login = async (email, password) => {
     const response = await createSession(email, password);
     const loggedUser = response.data.user;
+
     const token = response.data.token;
     console.log("login", response.data.user);
     console.log("token", response.data.token);
@@ -43,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   };
   return (
     <AuthContext.Provider
-      value={{ authenticated: !!user, user, loading, login, logout }}
+      value={{ authenticated: !!user, user, login, logout }}
     >
       {children}
     </AuthContext.Provider>
