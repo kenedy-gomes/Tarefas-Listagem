@@ -32,7 +32,7 @@ const Header = () => {
                     Fazer Login
                   </MenuItem>
                   <MenuItem
-                    onClick={() => (window.location.href = "/cadastro")}
+                    onClick={() => (window.location.href = "/cadastrar")}
                     color={"black"}
                   >
                     Criar uma Conta
