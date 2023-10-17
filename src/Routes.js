@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home/index.js";
 import Listagem from "./Pages/Listagem/Listagem.js";
 import Login from "./Pages/Login/index.js";
+import Register from "../src/Pages/Register/Cadastro.js";
 import { AuthProvider, AuthContext } from "./contexts/auth.js";
 
 const Routers = () => {
@@ -35,6 +36,7 @@ const Routers = () => {
           }
         />
         <Route exact path="/login" element={<Login />} />
+        <Route path="/cadastrar" element={<Register />} />
       </Routes>
     </AuthProvider>
   );
