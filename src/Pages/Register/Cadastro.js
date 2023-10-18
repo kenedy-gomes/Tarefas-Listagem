@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import './register.css';
+import { Button } from '@chakra-ui/react';
 
 
 function App() {
@@ -31,9 +32,9 @@ function App() {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>Cadastro de Usuários</h1>
-      <form onSubmit={handleSubmit}>
+      <form className='form'>
         <div>
           <label>Nome:</label>
           <input
@@ -58,7 +59,7 @@ function App() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Cadastrar</button>
+        <Button type="submit" onClick={handleSubmit}>Cadastrar</Button>
       </form>
     </div>
   );
