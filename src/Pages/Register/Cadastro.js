@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import './register.css';
+import axios from 'axios';
 import { Button, Input } from '@chakra-ui/react';
-
 
 function App() {
   const [name, setName] = useState('');
@@ -29,11 +28,10 @@ function App() {
     }
   };
 
-
   return (
-    <div className='container'>
+    <div>
       <h1>Cadastro de Usuários</h1>
-      <form className='form'>
+      <form onSubmit={handleSubmit}>
         <div>
           <label>Nome:</label>
           <Input
