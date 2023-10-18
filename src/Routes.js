@@ -23,7 +23,7 @@ const Routers = () => {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/listagem" element={<Listagem />} />
+        <Route exact path="/" element={<Listagem />} />
       </Routes>
     </AuthProvider>
   );
