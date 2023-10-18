@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './register.css';
-import { Button } from '@chakra-ui/react';
+import { Button, Input } from '@chakra-ui/react';
 
 
 function App() {
@@ -11,25 +11,24 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('http://localhost:3001/usuarios', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    try {
+      const response = await axios.post('http://localhost:3001/usuarios', {
         name: name,
         email: email,
         password: password,
-      }),
-    });
+      });
 
-    if (response.status === 200) {
-      const data = await response.json();
-      alert(`Usuário cadastrado com sucesso! Token: ${data.token}`);
-    } else {
-      alert('Erro ao cadastrar o usuário');
+      if (response.status === 200) {
+        const data = response.data;
+        alert(`Usuário cadastrado com sucesso! Token: ${data.token}`);
+      } else {
+        alert('Erro ao cadastrar o usuário');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar a solicitação:', error);
     }
   };
+
 
   return (
     <div className='container'>
@@ -37,7 +36,7 @@ function App() {
       <form className='form'>
         <div>
           <label>Nome:</label>
-          <input
+          <Input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -45,7 +44,7 @@ function App() {
         </div>
         <div>
           <label>Email:</label>
-          <input
+          <Input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -53,7 +52,7 @@ function App() {
         </div>
         <div>
           <label>Senha:</label>
-          <input
+          <Input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

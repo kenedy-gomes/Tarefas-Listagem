@@ -14,7 +14,7 @@ const Home = () => {
         <div className="form">
           <h1>Aplicação de listagem e cadastro de tarefas</h1>
           <p>Faça o login ou crie uma conta!</p>
-          <Button onclick={() => {(window.location.href = "/cadastrar")}}>Registrar</Button>
+          <Button  onClick={() => (window.location.href = "/cadastrar")}>Registrar</Button>
         </div>
       </div>
     </div>
