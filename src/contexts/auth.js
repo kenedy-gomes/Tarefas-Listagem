@@ -1,4 +1,3 @@
- 
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, createSession } from "../Services/api";
@@ -61,4 +60,3 @@ debugger
     </AuthContext.Provider>
   );
 };
- 
