@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Home from "./Pages/Home/index.js";
 import Listagem from "./Pages/Listagem/Listagem.js";
-import Login from "./Pages/Login/index.js";
+ 
  
 import { AuthProvider, AuthContext } from "./contexts/auth.js";
 
@@ -35,7 +35,7 @@ const Routers = () => {
          
           }
         />
-        <Route exact path="/login" element={<Login />} />
+   
       </Routes>
     </AuthProvider>
   );
